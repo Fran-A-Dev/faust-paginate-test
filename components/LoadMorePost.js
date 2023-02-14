@@ -25,8 +25,10 @@ const BATCH_SIZE = 5;
 export default function LoadMorePost() {
   const { data, loading, error, fetchMore } = useQuery(GET_POSTS, {
     variables: { first: BATCH_SIZE, after: null },
-    notifyOnNetworkStatusChange: true,
+    // notifyOnNetworkStatusChange: true,
   });
+
+  console.log(data);
 
   if (error) {
     return <p>Sorry, an error happened. Reload Please</p>;
