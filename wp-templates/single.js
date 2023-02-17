@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client';
-import * as MENUS from '../constants/menus';
-import { BlogInfoFragment } from '../fragments/GeneralSettings';
+import { gql } from "@apollo/client";
+import PaginatedFooter from "../components/Footer/PaginatedFooter";
+import * as MENUS from "../constants/menus";
+import { BlogInfoFragment } from "../fragments/GeneralSettings";
 import {
   Header,
-  Footer,
   Main,
   Container,
   EntryHeader,
@@ -11,7 +11,7 @@ import {
   ContentWrapper,
   FeaturedImage,
   SEO,
-} from '../components';
+} from "../components";
 
 export default function Component(props) {
   // Loading state for previews
@@ -32,11 +32,7 @@ export default function Component(props) {
         description={siteDescription}
         imageUrl={featuredImage?.node?.sourceUrl}
       />
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        menuItems={primaryMenu}
-      />
+      <Header title={siteTitle} description={siteDescription} />
       <Main>
         <>
           <EntryHeader
@@ -45,12 +41,13 @@ export default function Component(props) {
             date={date}
             author={author?.node?.name}
           />
+
           <Container>
             <ContentWrapper content={content} />
           </Container>
         </>
       </Main>
-      <Footer title={siteTitle} menuItems={footerMenu} />
+      <PaginatedFooter post={props.data.post} />
     </>
   );
 }
@@ -73,6 +70,14 @@ Component.query = gql`
         node {
           name
         }
+      }
+      previousPost {
+        title
+        slug
+      }
+      nextPost {
+        title
+        slug
       }
       ...FeaturedImageFragment
     }

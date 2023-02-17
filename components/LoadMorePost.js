@@ -61,7 +61,7 @@ export default function LoadMorePost() {
                 marginBottom: "1rem",
               }}
             >
-              <Link href={`/blog/${slug}`}>{title}</Link>
+              <Link href={`${slug}`}>{title}</Link>
             </li>
           );
         })}
