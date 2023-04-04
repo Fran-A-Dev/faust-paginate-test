@@ -28,8 +28,6 @@ export default function LoadMorePost() {
     // notifyOnNetworkStatusChange: true,
   });
 
-  console.log(data);
-
   if (error) {
     return <p>Sorry, an error happened. Reload Please</p>;
   }
