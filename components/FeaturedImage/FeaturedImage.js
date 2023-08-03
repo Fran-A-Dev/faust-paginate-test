@@ -1,5 +1,6 @@
-import { gql } from '@apollo/client';
-import Image from 'next/image';
+import { gql } from "@apollo/client";
+//import Image from 'next/image';
+import { CldImage } from "next-cloudinary";
 export default function FeaturedImage({
   image,
   width,
@@ -10,15 +11,17 @@ export default function FeaturedImage({
   ...props
 }) {
   const src = image?.sourceUrl;
-  const { altText } = image || '';
+  const { altText } = image || "";
 
   width = width ? width : image?.mediaDetails?.width;
   height = height ? height : image?.mediaDetails?.height;
-  layout = layout ?? 'fill';
+  layout = layout ?? "fill";
 
   return src && width && height ? (
     <figure className={className}>
-      <Image
+      <CldImage
+        cartoonify
+        removeBackground
         src={src}
         alt={altText}
         layout={layout}

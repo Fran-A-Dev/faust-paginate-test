@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import PaginatedFooter from "../components/Footer/PaginatedFooter";
 import * as MENUS from "../constants/menus";
 import { BlogInfoFragment } from "../fragments/GeneralSettings";
+
 import {
   Header,
   Main,
@@ -12,6 +13,7 @@ import {
   FeaturedImage,
   SEO,
 } from "../components";
+import FranImage from "../components/FranImage";
 
 export default function Component(props) {
   // Loading state for previews
@@ -60,7 +62,7 @@ Component.query = gql`
     $databaseId: ID!
     $headerLocation: MenuLocationEnum
     $footerLocation: MenuLocationEnum
-    $asPreview: Boolean = false
+    $asPreview: Boolean = true
   ) {
     post(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title

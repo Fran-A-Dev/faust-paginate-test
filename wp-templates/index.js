@@ -5,8 +5,8 @@ import page from "./page";
 import single from "./single";
 import categoryFood from "./category-food";
 import pageSamplePage from "./page-sample-page";
-import SingleMovie from "./single-movies";
-import ArchiveMovies from "./archive-movies";
+import SingleMovie from "./single-movie";
+import ArchiveMovies from "./archive-movie";
 
 export default {
   category,
@@ -16,6 +16,6 @@ export default {
   "page-sample-page": pageSamplePage,
   page,
   single,
-  "single-movies": SingleMovie,
-  "archive-movies": ArchiveMovies,
+  "single-movie": SingleMovie,
+  "archive-movie": ArchiveMovies,
 };
