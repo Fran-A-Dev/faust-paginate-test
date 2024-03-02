@@ -43,7 +43,6 @@ export default function Component(props) {
             date={date}
             author={author?.node?.name}
           />
-
           <Container>
             <ContentWrapper content={content} />
           </Container>

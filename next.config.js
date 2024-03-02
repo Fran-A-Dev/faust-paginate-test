@@ -1,4 +1,4 @@
-const { withFaust, getWpHostname } = require('@faustwp/core');
+const { withFaust, getWpHostname } = require("@faustwp/core");
 
 /**
  * @type {import('next').NextConfig}
@@ -6,13 +6,13 @@ const { withFaust, getWpHostname } = require('@faustwp/core');
 module.exports = withFaust({
   reactStrictMode: true,
   sassOptions: {
-    includePaths: ['node_modules'],
+    includePaths: ["node_modules"],
   },
   images: {
     domains: [getWpHostname()],
   },
   i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
+    locales: ["en"],
+    defaultLocale: "en",
   },
 });

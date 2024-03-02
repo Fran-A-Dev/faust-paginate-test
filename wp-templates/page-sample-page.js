@@ -1,96 +1,28 @@
 import { gql } from "@apollo/client";
-import * as MENUS from "../constants/menus";
-import { BlogInfoFragment } from "../fragments/GeneralSettings";
-import {
-  Header,
-  Footer,
-  Main,
-  Container,
-  ContentWrapper,
-  EntryHeader,
-  NavigationMenu,
-  FeaturedImage,
-  SEO,
-} from "../components";
 
+// The Component is required
 export default function Component(props) {
-  // Loading state for previews
-  if (props.loading) {
-    return <>Loading...</>;
-  }
-
-  const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings;
-  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
-  const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
-  const { title, content, featuredImage, date } = props?.data?.page ?? {
-    title: "",
-  };
-
   return (
     <>
-      <SEO
-        title={siteTitle}
-        description={siteDescription}
-        imageUrl={featuredImage?.node?.sourceUrl}
-      />
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        menuItems={primaryMenu}
-      />
-      <Main>
-        <>
-          <EntryHeader title={title} image={featuredImage?.node} />
-          <p>Published on {new Date(date).toLocaleDateString()}</p>
-          <h2>Custom Template</h2>
-          <Container>
-            <ContentWrapper content={content} />
-          </Container>
-        </>
-      </Main>
-      <Footer title={siteTitle} menuItems={footerMenu} />
+      <h2>{props.data.page.title}</h2>
+      <h3>This is a custom template from Faust.js</h3>
+      <div dangerouslySetInnerHTML={{ __html: props.data.page.content }} />
     </>
   );
 }
 
-Component.variables = ({ databaseId }, ctx) => {
-  return {
-    databaseId,
-    headerLocation: MENUS.PRIMARY_LOCATION,
-    footerLocation: MENUS.FOOTER_LOCATION,
-    asPreview: ctx?.asPreview,
-  };
-};
-
 Component.query = gql`
-  ${BlogInfoFragment}
-  ${NavigationMenu.fragments.entry}
-  ${FeaturedImage.fragments.entry}
-  query GetPageData(
-    $databaseId: ID!
-    $headerLocation: MenuLocationEnum
-    $footerLocation: MenuLocationEnum
-    $asPreview: Boolean = false
-  ) {
-    page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+  query GetPageDataByURI($uri: ID!) {
+    page(id: $uri, idType: URI) {
       title
       content
-      date
-      ...FeaturedImageFragment
-    }
-    generalSettings {
-      ...BlogInfoFragment
-    }
-    footerMenuItems: menuItems(where: { location: $footerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    headerMenuItems: menuItems(where: { location: $headerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
+      slug
     }
   }
 `;
+
+Component.variables = (seedQuery, context) => {
+  return {
+    uri: seedQuery?.uri,
+  };
+};
